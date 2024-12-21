@@ -3,7 +3,7 @@ name: posting_daily_challenges
 on:
   schedule:
     - cron: '25 3 * * *'
-  workflow_dispatch:
+#  workflow_dispatch:
 
 jobs:
   posting_the_daily_challenge_of_today:
