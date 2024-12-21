@@ -1,0 +1,28 @@
+name: posting_daily_challenges
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '25 3 * * *'
+
+jobs:
+  posting_the_daily_challenge_of_today:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11
+
+    - name: Install Dependencies
+      run: pip install -r requirements.txt --no-cache-dir
+
+    - name: Run Python Script
+      env:
+          LABEL: ${{ secrets.LABEL }}
+          TABLE202412: ${{ secrets.TABLE202412 }}
+          WEBHOOK: ${{ secrets.WEBHOOK }}
+      run: python main.py
