@@ -1,4 +1,4 @@
-name: posting_daily_challenges_develop
+name: posting_daily_challenges
 
 on:
   workflow_dispatch:
