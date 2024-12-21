@@ -3,7 +3,7 @@ name: posting_daily_challenges
 on:
   schedule:
     - cron: '25 3 * * *'
-#  workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
   posting_the_daily_challenge_of_today:
@@ -22,7 +22,7 @@ jobs:
 
     - name: Run Python Script
       env:
-          WEBHOOK: ${{ secrets.WEBHOOK }}
+          WEBHOOK_DEVELOP: ${{ secrets.WEBHOOK }}
           LABEL: ${{ secrets.LABEL }}
           TABLE202412: ${{ secrets.TABLE202412 }}
           TABLE202501: ${{ secrets.TABLE202501 }}
