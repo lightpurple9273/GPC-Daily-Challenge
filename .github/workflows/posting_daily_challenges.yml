@@ -22,7 +22,7 @@ jobs:
 
     - name: Run Python Script
       env:
-          WEBHOOK: ${{ secrets.WEBHOOK }}
+          WEBHOOK: ${{ secrets.WEBHOOK_PRODUCTION }}
           LABEL: ${{ secrets.LABEL }}
           TABLE202412: ${{ secrets.TABLE202412 }}
           TABLE202501: ${{ secrets.TABLE202501 }}
