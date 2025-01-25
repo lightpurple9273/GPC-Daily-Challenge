@@ -26,4 +26,5 @@ jobs:
           LABEL: ${{ secrets.LABEL }}
           TABLE202412: ${{ secrets.TABLE202412 }}
           TABLE202501: ${{ secrets.TABLE202501 }}
+          TABLE202502: ${{ secrets.TABLE202502 }}
       run: python main.py
