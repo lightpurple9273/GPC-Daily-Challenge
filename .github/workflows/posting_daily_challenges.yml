@@ -8,12 +8,13 @@ on:
 jobs:
   posting_the_daily_challenge_of_today:
     runs-on: ubuntu-latest
+    environment: development
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: 3.11
 
@@ -21,10 +22,11 @@ jobs:
       run: pip install -r requirements.txt --no-cache-dir
 
     - name: Run Python Script
-      env:
-          WEBHOOK: ${{ secrets.WEBHOOK_PRODUCTION }}
-          LABEL: ${{ secrets.LABEL }}
-          TABLE202412: ${{ secrets.TABLE202412 }}
-          TABLE202501: ${{ secrets.TABLE202501 }}
-          TABLE202502: ${{ secrets.TABLE202502 }}
+      env:  ${{ secrets }} # this is absurd but works
+      #env:
+      #    WEBHOOK: ${{ secrets.WEBHOOK_PRODUCTION }}
+      #    LABEL: ${{ secrets.LABEL }}
+      #    TABLE202412: ${{ secrets.TABLE202412 }}
+      #    TABLE202501: ${{ secrets.TABLE202501 }}
+      #    TABLE202502: ${{ secrets.TABLE202502 }}
       run: python main.py
