@@ -6,9 +6,32 @@ on:
   workflow_dispatch:
 
 jobs:
+  select-environment:
+    runs-on: ubuntu-latest
+    outputs:
+      ENV_NAME: ${{ steps.set-env-step.outputs.ENV_NAME }}  # Referencing the output from the step
+    steps:
+      - name: Determine environment
+        id: set-env-step  # Make sure to reference this id when setting the output
+        run: |
+          # Check if running on the default branch
+          if [[ "${{ github.ref }}" == "refs/heads/${{ github.event.repository.default_branch }}" ]]; then
+            if [[ "${{ github.event_name }}" == "schedule" ]]; then
+              ENV_NAME="production"  # For schedule trigger on default branch
+            else
+              ENV_NAME="staging"  # For manual trigger on default branch
+            fi
+          else
+            ENV_NAME="development"
+          fi
+          
+          # Set the environment variable as step output
+          echo "ENV_NAME=$ENV_NAME" >> $GITHUB_OUTPUT
+
   posting_the_daily_challenge_of_today:
     runs-on: ubuntu-latest
-    environment: development
+    needs: select-environment  # Ensuring this job runs after select-environment
+    environment: ${{ needs.select-environment.outputs.ENV_NAME }}  # Dynamic assignment to the 'name' of the environment
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
