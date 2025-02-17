@@ -53,3 +53,17 @@ jobs:
       #    TABLE202501: ${{ secrets.TABLE202501 }}
       #    TABLE202502: ${{ secrets.TABLE202502 }}
       run: python main.py
+
+  if-evoked-from-schedule-then-checkout-from-staging-branch-and-run:
+    if: github.event_name == 'schedule'  # This ensures the job runs only for scheduled events
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - name: Checkout a staging branch
+        uses: actions/checkout@v4
+        with:
+          ref: staging  # Specify the branch you want to check out (e.g., staging)
+
+      - name: Print the current branch
+        run: |
+          echo "Current branch: $(git rev-parse --abbrev-ref HEAD)"
