@@ -11,9 +11,9 @@ tables = gpcdc.Tables()
 anun = gpcdc.Announcement()
 
 anun.create_message(datetime.date.today(),tables)
-print(anun.message)
+#print(anun.message)
 anun.post(os.getenv("WEBHOOK"))
     
 anun.create_message(datetime.date.today()+datetime.timedelta(days=1),tables)
-print(anun.message)
+#print(anun.message)
 anun.post(os.getenv("WEBHOOK"))
