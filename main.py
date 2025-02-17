@@ -2,8 +2,8 @@
 
 import gpcdc
 
-import pandas as pd
-import requests
+#import pandas as pd
+#import requests
 import datetime
 import os
 
