@@ -46,12 +46,6 @@ jobs:
 
     - name: Run Python Script
       env:  ${{ secrets }} # this is absurd but works
-      #env:
-      #    WEBHOOK: ${{ secrets.WEBHOOK_PRODUCTION }}
-      #    LABEL: ${{ secrets.LABEL }}
-      #    TABLE202412: ${{ secrets.TABLE202412 }}
-      #    TABLE202501: ${{ secrets.TABLE202501 }}
-      #    TABLE202502: ${{ secrets.TABLE202502 }}
       run: python main.py
 
   if-evoked-from-schedule-then-checkout-from-staging-branch-and-run:
@@ -64,6 +58,14 @@ jobs:
         with:
           ref: staging  # Specify the branch you want to check out (e.g., staging)
 
-      - name: Print the current branch
-        run: |
-          echo "Current branch: $(git rev-parse --abbrev-ref HEAD)"
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+  
+      - name: Install Dependencies
+        run: pip install -r requirements.txt --no-cache-dir
+  
+      - name: Run Python Script
+        env:  ${{ secrets }} # this is absurd but works
+        run: python main.py
