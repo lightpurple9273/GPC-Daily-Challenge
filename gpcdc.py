@@ -18,12 +18,12 @@ class Tables:
                 self.dfs[key] = pd.read_html(f'{os.getenv("LABEL")}{os.getenv(key)}')[0]
         return self.dfs[key]
 
-    def mass_read(self):
-        for year in range(2013,int(datetime.date.today().year)+int(11)):
-            for month in range(1,13):
-                table_of_the_month = f"TABLE{year}{month:02}"
-                if os.getenv(table_of_the_month) is not None:
-                    self.dfs[f"{year}{month:02}"] = pd.read_html(f'{os.getenv("LABEL")}{os.getenv(table)}')[0]
+#    def mass_read(self):
+#        for year in range(2013,int(datetime.date.today().year)+int(11)):
+#            for month in range(1,13):
+#                table_of_the_month = f"TABLE{year}{month:02}"
+#                if os.getenv(table_of_the_month) is not None:
+#                    self.dfs[f"{year}{month:02}"] = pd.read_html(f'{os.getenv("LABEL")}{os.getenv(table)}')[0]
 
 class Announcement:
     def __init__(self):
