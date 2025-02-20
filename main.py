@@ -14,7 +14,7 @@ anun.create_message(datetime.date.today(),tables)
 anun.post(os.getenv("WEBHOOK_PUBLICATION"))
     
 anun.create_message(datetime.date.today()+datetime.timedelta(days=1),tables,
-                    supress_ping=bool(True),
+                    suppress_ping=bool(True),
                    pre_message="Tomorrow's DC announcement will be...\n====\n",
                    post_message="\n====\nA ping for `@GPC Daily Challenge`, role id 1172389612665180190, will be added for tomorrow.")
 anun.post(os.getenv("WEBHOOK_DRAFT"))
