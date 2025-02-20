@@ -15,8 +15,8 @@ anun.post(os.getenv("WEBHOOK_PUBLICATION"))
     
 anun.create_message(datetime.date.today()+datetime.timedelta(days=1),tables,
                     supress_ping=bool(True),
-                   pre_message="Tomorrow's DC announcement will be...\n====\m",
-                   post_message="\n====\nA ping will be added for tomorrow.")
+                   pre_message="Tomorrow's DC announcement will be...\n====\n",
+                   post_message="\n====\nA ping for `@GPC Daily Challenge`, role id 1172389612665180190, will be added for tomorrow.")
 anun.post(os.getenv("WEBHOOK_DRAFT"))
 
 response = requests.post(os.getenv("WEBHOOK_LOG"),json={"content":"DC posting successful for today!",})
