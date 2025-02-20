@@ -2,6 +2,8 @@
 
 import gpcdc
 
+import requests
+
 import datetime
 import os
 
