@@ -8,10 +8,15 @@ import os
 tables = gpcdc.Tables()
 anun = gpcdc.Announcement()
 
-#anun.create_message(datetime.date.today(),tables)
-#print(anun.message)
-#anun.post(os.getenv("WEBHOOK"))
+anun.create_message(datetime.date.today(),tables)
+anun.post(os.getenv("WEBHOOK_PUBLICATION"))
     
 anun.create_message(datetime.date.today()+datetime.timedelta(days=1),tables,supress_ping=bool(True))
-#print(anun.message)
-anun.post(os.getenv("WEBHOOK"))
+anun.post(os.getenv("WEBHOOK_DRAFT"))
+
+response = requests.post(os.getenv("WEBHOOK_LOG"),json={"content":"DC posting successful for today!",})
+if response.status_code == 204:
+    print("Message sent successfully!")
+else:
+    raise Exception(f"Failed to send message: {response.status_code}")
+    
