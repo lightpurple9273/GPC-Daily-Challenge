@@ -19,9 +19,6 @@ anun.create_message(datetime.date.today()+datetime.timedelta(days=1),tables,
                    post_message="\n====\nA ping for `@GPC Daily Challenge`, role id 1172389612665180190, will be added for tomorrow.")
 anun.post(os.getenv("WEBHOOK_DRAFT"))
 
-response = requests.post(os.getenv("WEBHOOK_LOG"),json={"content":"DC posting successful for today!",})
-if response.status_code == 204:
-    print("Message sent successfully!")
-else:
+if not (requests.post(os.getenv("WEBHOOK_LOG"),json={"content":"DC posting successful for today!",})).status_code == 204:
     raise Exception(f"Failed to send message: {response.status_code}")
     
