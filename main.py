@@ -25,7 +25,7 @@ try:
     for i in range(365):
         anun.create_message(datetime.date.today()+datetime.timedelta(days=i),tables,raise_if_corruption_detected=bool(True))
 except Exception as e:
-    if not (requests.post(os.environ["WEBHOOK_LOG"],json={"content":f"DC bot will fail to post in __***{i} day(s)***__ due to:\n__**`{e}`**__\nDetails:\n>>> {traceback.format_exc()}",})).status_code == 204:
+    if not (requests.post(os.environ["WEBHOOK_LOG"],json={"content":f"DC bot will fail to post in __**{i} day(s)**__ due to:\n**`{e}`**\nDetails:\n>>> {traceback.format_exc()}",})).status_code == 204:
         raise Exception(f"Failed to send message: {response.status_code}")
 
 if not (requests.post(os.environ["WEBHOOK_LOG"],json={"content":"DC preparedness check completed",})).status_code == 204:
