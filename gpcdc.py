@@ -12,18 +12,18 @@ class Tables:
     def read(self,datetime_date):
         key = f"TABLE{datetime_date.year}{datetime_date.month:02}"
         if key not in self.dfs:
-            if os.getenv(key) is None:
+            if os.environ[key] is None:
                 raise Exception(f"{key} is not set.")
             else:
-                self.dfs[key] = pd.read_html(f'{os.getenv("LABEL")}{os.getenv(key)}')[0]
+                self.dfs[key] = pd.read_html(f'{os.environ["LABEL"]}{os.environ[key]}')[0]
         return self.dfs[key]
 
 #    def mass_read(self):
 #        for year in range(2013,int(datetime.date.today().year)+int(11)):
 #            for month in range(1,13):
 #                table_of_the_month = f"TABLE{year}{month:02}"
-#                if os.getenv(table_of_the_month) is not None:
-#                    self.dfs[f"{year}{month:02}"] = pd.read_html(f'{os.getenv("LABEL")}{os.getenv(table)}')[0]
+#                if os.environ[table_of_the_month] is not None:
+#                    self.dfs[f"{year}{month:02}"] = pd.read_html(f'{os.environ["LABEL"]}{os.environ[table]}')[0]
 
 class Announcement:
     def __init__(self):
@@ -48,14 +48,14 @@ class Announcement:
 
 if __name__ == "__main__":
     tables = Tables()
-    an = Announcement()
+    anun = Announcement()
 
-    an.create_message(datetime.date.today(),tables)
-    print(an.message)
-    #an.post(os.getenv("WEBHOOK_DEVELOP"))
+    anun.create_message(datetime.date.today(),tables)
+    print(anun.message)
+    #anun.post(os.environ["WEBHOOK_DEVELOP"])
         
-    an.create_message(datetime.date.today()+datetime.timedelta(days=1),tables)
-    print(an.message)
-    #an.post(os.getenv("WEBHOOK_DEVELOP"))
+    anun.create_message(datetime.date.today()+datetime.timedelta(days=1),tables)
+    print(anun.message)
+    #anun.post(os.environ["WEBHOOK_DEVELOP"])
 
 
