@@ -23,6 +23,11 @@ if not (requests.post(os.environ["WEBHOOK_LOG"],json={"content":"DC posting succ
     raise Exception(f"Failed to send message: {response.status_code}")
 
 try:
-    for i in range(10):
+    for i in range(30):
         anun.create_message(datetime.date.today()+datetime.timedelta(days=i),tables)
-        
+except Exception as e:
+    if not (requests.post(os.environ["WEBHOOK_LOG"],json={"content":f"Future DC generation will stop for {datetime.timedelta(days=i)} due to...\n{e}\n{traceback.print_exc()}",})).status_code == 204:
+        raise Exception(f"Failed to send message: {response.status_code}")
+
+if not (requests.post(os.environ["WEBHOOK_LOG"],json={"content":"DC future readiness check completed, too!",})).status_code == 204:
+    raise Exception(f"Failed to send message: {response.status_code}")
