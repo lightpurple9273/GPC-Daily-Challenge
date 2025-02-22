@@ -18,15 +18,15 @@ anun.create_message(datetime.date.today()+datetime.timedelta(days=1),tables,
                    post_message="\n====\nA ping for `@GPC Daily Challenge`, role id 1172389612665180190, will be added for tomorrow.")
 anun.post(os.environ["WEBHOOK_DRAFT"])
 
-if not (requests.post(os.environ["WEBHOOK_LOG"],json={"content":"DC posting successful for today!",})).status_code == 204:
+if not (requests.post(os.environ["WEBHOOK_LOG"],json={"content":"DC posting successful for today",})).status_code == 204:
     raise Exception(f"Failed to send message: {response.status_code}")
 
 try:
-    for i in range(30):
+    for i in range(365):
         anun.create_message(datetime.date.today()+datetime.timedelta(days=i),tables,raise_if_corruption_detected=bool(True))
 except Exception as e:
-    if not (requests.post(os.environ["WEBHOOK_LOG"],json={"content":f"Future DC generation will stop for {datetime.timedelta(days=i)} due to...\n{e}\n{traceback.format_exc()}",})).status_code == 204:
+    if not (requests.post(os.environ["WEBHOOK_DRAFT"],json={"content":f"DC bot will fail posting in {i} day(s) because `{e}`\n>>> {traceback.format_exc()}",})).status_code == 204:
         raise Exception(f"Failed to send message: {response.status_code}")
 
-if not (requests.post(os.environ["WEBHOOK_LOG"],json={"content":"DC future readiness check completed, too!",})).status_code == 204:
+if not (requests.post(os.environ["WEBHOOK_LOG"],json={"content":"DC preparedness check completed",})).status_code == 204:
     raise Exception(f"Failed to send message: {response.status_code}")
