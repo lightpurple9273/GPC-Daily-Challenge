@@ -29,11 +29,16 @@ class Announcement:
     def __init__(self):
         pass
 
-    def create_message(self,datetime_date,tables,pre_message="",post_message="",suppress_ping=bool(False)):
+    def create_message(self,datetime_date,tables,pre_message="",post_message="",suppress_ping=bool(False),raise_if_corruption_detected=bool(False)):
         challenge_number = (datetime_date-datetime.date(2023,10,31)).days
         df = tables.read(datetime_date)
         is_today = (df.iloc[:,1] == str(datetime_date.day)).values
         conf = df.iloc[is_today, 2:6].values[0]
+
+        if raise_if_corruption_detected:
+            if not "https://www.geoguessr.com/challenge/" in conf[3]:
+                raise Exception(f"URL is not set for {datetime_date}")
+        
         self.message = f"{pre_message}__**GPC Daily Challenge #{challenge_number}**__\nMap: **{conf[0]}**\nSettings: {conf[1]}, {conf[2]}\n<{conf[3]}>"
         if not suppress_ping:
             self.message = f"{self.message}\n<@&1172389612665180190>"
