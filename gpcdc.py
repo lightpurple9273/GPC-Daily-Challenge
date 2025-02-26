@@ -12,10 +12,7 @@ class Tables:
     def read(self,datetime_date):
         key = f"TABLE{datetime_date.year}{datetime_date.month:02}"
         if key not in self.dfs:
-            if os.environ[key] is None:
-                raise Exception(f"{key} is not set.")
-            else:
-                self.dfs[key] = pd.read_html(f'{os.environ["LABEL"]}{os.environ[key]}')[0]
+            self.dfs[key] = pd.read_html(f'{os.environ["LABEL"]}{os.environ[key]}')[0]
         return self.dfs[key]
 
 #    def mass_read(self):
