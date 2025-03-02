@@ -1,8 +1,8 @@
 name: posting_daily_challenges
 
 on:
-  schedule:
-    - cron: '25 3 * * *'
+  #schedule:
+  #  - cron: '25 3 * * *'
   workflow_dispatch:
 
 jobs:
