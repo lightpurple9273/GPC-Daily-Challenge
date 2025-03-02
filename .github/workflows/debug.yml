@@ -13,5 +13,5 @@ jobs:
     - name: Debug step 1
       env:  ${{ secrets }}
       run: |
-        curl -X POST "$WEBHOOK_DEBUG" -H "Content-Type: application/json" -d '{"message": "Debug test"}'
+        curl -X POST "$WEBHOOK_DEBUG" -H "Content-Type: application/json" -d '{"content": "Debug test"}'
         
