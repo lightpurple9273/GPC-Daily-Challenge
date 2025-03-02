@@ -1,0 +1,17 @@
+name: debug
+
+on:
+  #schedule:
+  #  - cron: '25 3 * * *'
+  workflow_dispatch:
+
+jobs:
+  print-202503:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+    - name: Debug step 1
+      env:  ${{ secrets }}
+      run: |
+        curl -X POST "$WEBHOOK_DEBUG" -H "Content-Type: application/json" -d '{"message": "Debug test"}'
+        
