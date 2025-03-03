@@ -13,5 +13,5 @@ jobs:
     - name: Debug step 1
       env:  ${{ secrets }}
       run: |
-        curl -X POST "$WEBHOOK_DEBUG" -H "Content-Type: application/json" -d '{"content": "TABLE202503 is $TABLE202503 in development environment"}'
+        curl -X POST "$WEBHOOK_DEBUG" -H "Content-Type: application/json" -d "{\"content\": \"TABLE202503 is $TABLE202503 in development environment\"}"
         
