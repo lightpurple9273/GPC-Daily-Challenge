@@ -24,5 +24,5 @@ json_message={"content":message,}
 #else:
 #    print(f"Failed to send message: {response.status_code}")
 
-if not (requests.post(os.environ["WEBHOOK_DEBUG"],json={"content":f"table is {table} \n os.getenv(table) is {os.getenv(table)}",})).status_code == 204:
+if not (requests.post(os.environ["WEBHOOK_DEBUG"],json={"content":f"table is {table} \n os.getenv(table) is {os.getenv(table)} \n df.to_string() is {df.to_string()}",})).status_code == 204:
     raise Exception(f"Failed to send message: {response.status_code}")
