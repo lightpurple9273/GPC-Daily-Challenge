@@ -8,10 +8,10 @@ on:
 jobs:
   print-202503:
     runs-on: ubuntu-latest
-    environment: production
+    environment: development
     steps:
     - name: Debug step 1
       env:  ${{ secrets }}
       run: |
-        curl -X POST "$WEBHOOK_DEBUG" -H "Content-Type: application/json" -d '{"message": "Debug test"}'
+        curl -X POST "$WEBHOOK_DEBUG" -H "Content-Type: application/json" -d "{\"content\": \"TABLE202503 is $TABLE202503 in development environment\"}"
         
