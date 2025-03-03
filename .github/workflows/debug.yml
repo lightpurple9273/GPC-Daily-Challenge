@@ -6,12 +6,31 @@ on:
   workflow_dispatch:
 
 jobs:
-  print-202503:
+  #print-202503:
+  #  runs-on: ubuntu-latest
+  #  environment: production
+  #  steps:
+  #  - name: Debug step 1
+  #    env:  ${{ secrets }}
+  #    run: |
+  #      curl -X POST "$WEBHOOK_DEBUG" -H "Content-Type: application/json" -d "{\"content\": \"TABLE202503 is $TABLE202503 in production environment\"}"
+        
+
+  posting_the_daily_challenge_of_today:
     runs-on: ubuntu-latest
     environment: production
     steps:
-    - name: Debug step 1
-      env:  ${{ secrets }}
-      run: |
-        curl -X POST "$WEBHOOK_DEBUG" -H "Content-Type: application/json" -d "{\"content\": \"TABLE202503 is $TABLE202503 in production environment\"}"
-        
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.11
+
+    - name: Install Dependencies
+      run: pip install -r requirements.txt --no-cache-dir
+
+    - name: Run Python Script
+      env:  ${{ secrets }} # this is absurd but works
+      run: python main.py
