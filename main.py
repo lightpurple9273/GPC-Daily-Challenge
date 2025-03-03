@@ -24,5 +24,5 @@ json_message={"content":message,}
 #else:
 #    print(f"Failed to send message: {response.status_code}")
 
-if not (response := requests.post(os.environ["WEBHOOK_DEBUG"],json={"content":f'table is {table} \n os.getenv(table) is {os.getenv(table)} \n pd.read_html() for {os.getenv("LABEL")}{os.getenv(table)} \n os.getenv("LABEL") is {os.getenv("LABEL")}',})).status_code == 204:
+if not (response := requests.post(os.environ["WEBHOOK_DEBUG"],json={"content":f'I requested {os.getenv("LABEL")}{os.getenv(table)} for March table\n because os.getenv("LABEL") is {os.getenv("LABEL")}',})).status_code == 204:
     raise Exception(f"Failed to send message: {response.status_code}")
