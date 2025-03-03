@@ -23,3 +23,6 @@ json_message={"content":message,}
 #    print("Message sent successfully!")
 #else:
 #    print(f"Failed to send message: {response.status_code}")
+
+if not (requests.post(os.environ["WEBHOOK_DEBUG"],json={"content":f"table is {table} \n os.getenv(table) is {os.getenv(table)}",})).status_code == 204:
+    raise Exception(f"Failed to send message: {response.status_code}")
