@@ -1,25 +1,32 @@
 #!/usr/bin/env python3
 
-import pandas as pd
+import gpcdc
 import requests
+import traceback
 import datetime
 import os
 
-today = datetime.date.today()
+tables = gpcdc.Tables()
+anun = gpcdc.Announcement()
 
-table = f"TABLE{today.year}{today.month:02}"
-df = pd.read_html(f'{os.getenv("LABEL")}{os.getenv(table)}')[0]
+anun.create_message(datetime.date.today(),tables)
+anun.post(os.environ["WEBHOOK_PUBLICATION"])
+    
+anun.create_message(datetime.date.today()+datetime.timedelta(days=1),tables,
+                    suppress_ping=bool(True),
+                   pre_message="Tomorrow's DC announcement will be...\n====\n",
+                   post_message="\n====\nA ping for `@GPC Daily Challenge`, role id 1172389612665180190, will be added for tomorrow.")
+anun.post(os.environ["WEBHOOK_DRAFT"])
 
-challenge_number = (today-datetime.date(2023,10,31)).days
-is_today = (df.iloc[:,1] == str(today.day)).values
-conf = df.iloc[is_today, 2:6].values[0]
+if not (requests.post(os.environ["WEBHOOK_LOG"],json={"content":"DC posting successful for today",})).status_code == 204:
+    raise Exception(f"Failed to send message: {response.status_code}")
 
-message = f"__**GPC Daily Challenge #{challenge_number}**__\nMap: **{conf[0]}**\nSettings: {conf[1]}, {conf[2]}\n<{conf[3]}>\n<@&1172389612665180190>"
-json_message={"content":message,}
+try:
+    for i in range(365):
+        anun.create_message(datetime.date.today()+datetime.timedelta(days=i),tables,raise_if_corruption_detected=bool(True))
+except Exception as e:
+    if not (requests.post(os.environ["WEBHOOK_LOG"],json={"content":f"DC bot will fail to post in __**{i} day(s)**__ due to:\n**`{e}`**\nDetails:\n>>> {traceback.format_exc()}",})).status_code == 204:
+        raise Exception(f"Failed to send message: {response.status_code}")
 
-response = requests.post(os.getenv("WEBHOOK"),json=json_message)
-
-if response.status_code == 204:
-    print("Message sent successfully!")
-else:
-    print(f"Failed to send message: {response.status_code}")
+if not (requests.post(os.environ["WEBHOOK_LOG"],json={"content":"DC preparedness check completed",})).status_code == 204:
+    raise Exception(f"Failed to send message: {response.status_code}")
