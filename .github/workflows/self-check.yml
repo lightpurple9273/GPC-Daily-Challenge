@@ -1,0 +1,14 @@
+name: self-check
+
+on:
+  schedule:
+    - cron: '25 13 5,15,25 * *'
+  workflow_dispatch:
+
+jobs:
+  self-check:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+  
