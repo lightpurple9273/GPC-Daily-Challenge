@@ -59,7 +59,7 @@ jobs:
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add timestamp.txt
           git commit -m "Update timestamp file"
-          git push origin main
+          git push origin HEAD
         fi
       
   if-evoked-from-schedule-then-checkout-from-staging-branch-and-run:
