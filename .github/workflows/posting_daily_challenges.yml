@@ -54,7 +54,7 @@ jobs:
         echo "$current_timestamp"
 
         # Check if the time difference is greater than or equal to 5.5 days (475200 seconds)
-        if [ $((current_timestamp - $(cat timestamp.txt))) -ge $((5*24+12)*60*60) ]; then
+        if [ $((current_timestamp - $(cat timestamp.txt))) -ge $(((5 * 24 + 12) * 60 * 60)) ]; then
           echo "entering if"
           echo "$current_timestamp" > timestamp.txt
           git config --global user.name "github-actions[bot]"
