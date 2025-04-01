@@ -1,7 +1,7 @@
 # GPC-Daily-Challenge
-Posting Daily Challenge on GPC Discord everyday via webhook
+Posts Daily Challenge on GPC Discord everyday via webhook
 
-It's [free (libre)](https://github.com/lightpurple9273/GPC-Daily-Challenge/blob/main/LICENSE) and [free (gratis)](https://docs.github.com/en/get-started/learning-about-github/githubs-plans#github-free-for-personal-accounts:~:text=GitHub%20Actions%20features,minutes%20per%20month).
+This project is hosted and runs for [free (gratis)](https://docs.github.com/en/get-started/learning-about-github/githubs-plans#github-free-for-personal-accounts:~:text=GitHub%20Actions%20features,minutes%20per%20month) within GitHub
 
 You can see its status at https://github.com/lightpurple9273/GPC-Daily-Challenge/actions/workflows/posting_daily_challenges.yml
 
