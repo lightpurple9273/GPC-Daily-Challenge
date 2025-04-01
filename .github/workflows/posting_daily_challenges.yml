@@ -32,6 +32,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: select-environment  # Ensuring this job runs after select-environment
     environment: ${{ needs.select-environment.outputs.ENV_NAME }}  # Dynamic assignment to the 'name' of the environment
+    permissions:
+      contents: write  # Only allow this job to push commits
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -47,7 +49,20 @@ jobs:
     - name: Run Python Script
       env:  ${{ secrets }} # this is absurd but works
       run: python main.py
-
+      
+    - name: Update Timestamp
+      run: |
+        current_timestamp=$(date +%s)
+        # Check if the time difference is greater than or equal to 5.5 days (475200 seconds)
+        if [ $((current_timestamp - $(cat timestamp.txt))) -ge $(((5 * 24 + 12) * 60 * 60)) ]; then
+          echo "$current_timestamp" > timestamp.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add timestamp.txt
+          git commit -m "Update timestamp file"
+          git push
+        fi
+      
   if-evoked-from-schedule-then-checkout-from-staging-branch-and-run:
     if: github.event_name == 'schedule'  # This ensures the job runs only for scheduled events
     runs-on: ubuntu-latest
