@@ -9,7 +9,7 @@ import os
 tables = gpcdc.Tables()
 anun = gpcdc.Announcement()
 
-anun.create_message(datetime.date.today(),tables)
+anun.create_message(datetime.date.today(),tables,raise_if_corruption_detected=bool(True))
 anun.post(os.environ["WEBHOOK_PUBLICATION"])
     
 anun.create_message(datetime.date.today()+datetime.timedelta(days=1),tables,
