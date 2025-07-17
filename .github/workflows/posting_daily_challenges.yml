@@ -53,8 +53,8 @@ jobs:
     - name: Update Timestamp
       run: |
         current_timestamp=$(date +%s)
-        # Check if the time difference is greater than or equal to 5.5 days (475200 seconds)
-        if [ $((current_timestamp - $(cat timestamp.txt))) -ge $(((5 * 24 + 12) * 60 * 60)) ]; then
+        # Check if the time difference is greater than or equal to 27.5 days (2376000 seconds)
+        if [ $((current_timestamp - $(cat timestamp.txt))) -ge $(((27 * 24 + 12) * 60 * 60)) ]; then
           echo "$current_timestamp" > timestamp.txt
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
